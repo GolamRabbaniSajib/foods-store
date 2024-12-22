@@ -2,12 +2,12 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
+import { auth, AuthContext } from "../provider/AuthProvider";
 import { useContext, useState } from "react";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const { createNewUser, setUser, updateUserProfile, googleProvider } =
+  const { createNewUser, setUser, updateUserProfile, signInWithGoogle } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const handleRegister = (e) => {
@@ -47,25 +47,23 @@ const Register = () => {
         toast.error("User registration failed");
       });
   };
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        toast.success("User register successful");
-        console.log(result);
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        toast.error("User registration failed");
-        console.log(error);
-      });
+  // Google Signin
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+
+      toast.success("Signin Successful");
+      navigate(navigate("/"), { replace: true });
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
   };
   return (
     <div>
       <div className="flex justify-center items-center min-h-screen">
         <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-xl p-6 border">
-          <h1 className="text-4xl font-bold">
-            Register your account
-          </h1>
+          <h1 className="text-4xl font-bold">Register your account</h1>
           <form onSubmit={handleRegister} className="card-body">
             <div className="form-control">
               <label className="label">

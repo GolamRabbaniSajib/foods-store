@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 const Login = () => {
   const [show, setShow] = useState(false);
-  const { logIn, setUser, googleProvider } = useContext(AuthContext);
+  const { logIn, setUser, signInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,16 +36,18 @@ const Login = () => {
         toast.error(errors?.message);
       });
   };
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        toast.success("User Login Successful");
-        navigate(location?.state ? location.state : "/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // Google Signin
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle()
+
+      toast.success('Signin Successful')
+      navigate(navigate(location?.state ? location.state : "/"), { replace: true })
+    } catch (err) {
+      console.log(err)
+      toast.error(err?.message)
+    }
+  }
   return (
     <div>
       <div className="flex justify-center items-center min-h-screen">
