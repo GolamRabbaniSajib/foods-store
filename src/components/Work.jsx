@@ -9,7 +9,7 @@ const Work = () => {
         <h1 className="text-4xl md:text-6xl font-semibold">How to order?</h1>
         <p className="font-bold text-gray-400">Follow the Steps</p>
       </div>
-      <div className="flex justify-between items-center w-11/12 mx-auto mt-28">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 w-11/12 mx-auto mt-28">
         <div className="flex flex-col items-center space-y-5">
           <p className="text-6xl">
             <FaLocationPinLock />

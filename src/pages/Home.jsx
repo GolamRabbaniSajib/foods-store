@@ -1,4 +1,5 @@
 import Banner from "../components/Banner";
+import SliderSwiper from "../components/SliderSwiper";
 import TopFood from "../components/TopFood";
 import Work from "../components/Work";
 
@@ -15,6 +16,8 @@ const Home = () => {
         <div>
             <TopFood></TopFood>
         </div>
+        {/* swiper */}
+        <SliderSwiper></SliderSwiper>
     </div>
   );
 };

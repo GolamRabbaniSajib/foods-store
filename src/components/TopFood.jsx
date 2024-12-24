@@ -48,6 +48,10 @@ const TopFood = () => {
 
   return (
     <div className="container mx-auto p-6">
+        <div className="space-y-5 pb-20">
+            <h1 className="text-center font-bold text-5xl">Top Foods by Selling</h1>
+            <p className="font-bold text-xl text-gray-500 text-center">Welcome to The Biggest Network of Food Ordering & Delivery</p>
+        </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {foods.map((food) => (
           <div key={food._id} className="bg-white p-4 rounded-lg shadow-lg">
@@ -63,8 +67,8 @@ const TopFood = () => {
             </p>
             <div className="mt-4">
               <Link
-                to={`/food/${food._id}`}
-                className="inline-block px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-300"
+                to={`/food/${1}`}
+                className="inline-block px-6 py-2 mt-4 text-white bg-green-400 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all duration-300"
               >
                 Details
               </Link>
