@@ -41,33 +41,39 @@ const FoodCard = () => {
         </div>
 
         {/* Food Details */}
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        <div className="w-full mx-auto md:w-2/3 flex flex-col p-6">
+          <h3 className="text-2xl font-semibold text-gray-800">
             {food.foodName}
-          </h1>
-          <p className="text-gray-600 text-lg mb-6">{food.description}</p>
-          <div className="flex justify-between items-center mb-6">
-            <p className="text-gray-700 font-semibold">
-              Price:{" "}
-              <span className="text-xl font-bold text-blue-500">
-                ${food.price}
-              </span>
+          </h3>
+          <p className="text-gray-600 mt-3">{food.description}</p>
+          <div className="flex flex-wrap gap-4 mt-4">
+            <p className="text-sm text-gray-500">
+              <span className="font-medium">Category:</span> {food.category}
             </p>
-            <p className="text-gray-700 font-semibold">
-              Available Quantity:{" "}
-              <span className="text-xl font-bold">{food.quantity}</span>
+            <p className="text-sm text-gray-500">
+              <span className="font-medium">Origin:</span> {food.foodOrigin}
             </p>
           </div>
-          <p className="text-gray-700 font-semibold mb-6">
-            Purchase Count:{" "}
-            <span className="font-bold">{food.purchaseCount}</span>
-          </p>
-          <button
-            onClick={handlePurchase}
-            className="w-full py-3 bg-gradient-to-r from-blue-500 to-green-500 hover:from-green-500 hover:to-blue-500 text-white font-bold rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-300"
-          >
-            Purchase Now
-          </button>
+          <div className="flex justify-between items-center mt-6">
+            <div className="mr-3 space-y-4">
+              <p className="text-lg font-bold text-gray-800">
+                Price: <span className="text-blue-600">${food.price}</span>
+              </p>
+              <p className="text-sm text-gray-500">
+                Available Quantity: {food.quantity}
+              </p>
+              <p className="text-sm text-gray-500">
+                Purchase Count: {food.purchaseCount}
+              </p>
+            </div>
+            <button
+              className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-200"
+              onClick={handlePurchase}
+              disabled={food.quantity === 0}
+            >
+              {food.quantity > 0 ? "Purchase Now" : "Out of Stock"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

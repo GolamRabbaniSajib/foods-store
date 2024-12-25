@@ -11,6 +11,30 @@ const FoodPurchase = () => {
   const navigate = useNavigate();
   const [food, setFood] = useState({});
 
+  const foodName = food.foodName;
+  const foodImage = food.foodImage;
+  const category = food.categoryName;
+  const price = parseFloat(food.price);
+  const description = food.description;
+  const purchaseCount = parseFloat(food.purchaseCount);
+  const foodOrigin = food.foodOrigin;
+  const email = food.buyer?.email;
+  const userName = food.buyer?.userName;
+
+  const foodData = {
+    foodName,
+    foodImage,
+    category,
+    price,
+    description,
+    foodOrigin,
+    purchaseCount,
+    postedUserEmail: email,
+    postedUserName: userName,
+    buyingDate: new Date().toString(),
+    seller: { email: user?.email, userName: user?.name, photo: user?.photoURL },
+  };
+
   useEffect(() => {
     fetchFoodData();
   }, [id]);
@@ -41,7 +65,7 @@ const FoodPurchase = () => {
 
     const formData = { quantity, purchaseCount };
 
-    // add form data on mongodb by axios
+    // edit form data on mongodb by axios
 
     try {
       await axios.put(
@@ -50,6 +74,18 @@ const FoodPurchase = () => {
       );
       form.reset();
       toast.success("Food Purchase Successfully");
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+    // add form data on mongodb by axios
+
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/add-purchase-food`,
+        foodData
+      );
+      form.reset();
       navigate("/my-orders");
     } catch (err) {
       toast.error(err.message);
