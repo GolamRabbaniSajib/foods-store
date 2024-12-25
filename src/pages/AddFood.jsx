@@ -28,6 +28,7 @@ const AddFood = () => {
       description,
       quantity,
       foodOrigin,
+      purchaseCount: 0,
       buyer: { email, userName, photo: user?.photoURL },
     };
     // add form data on mongodb by axios
