@@ -1,61 +1,22 @@
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const AddFood = () => {
+const UpdateFood = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // get data from input
-    const form = e.target;
-    const foodName = form.foodName.value;
-    const foodImage = form.photo.value;
-    const category = form.categoryName.value;
-    const price = parseFloat(form.price.value);
-    const description = form.description.value;
-    const quantity = parseFloat(form.quantity.value);
-    const foodOrigin = form.foodOrigin.value;
-    const email = form.email.value;
-    const userName = form.userName.value;
-    const formData = {
-      foodName,
-      foodImage,
-      category,
-      price,
-      description,
-      quantity,
-      foodOrigin,
-      buyer: { email, userName, photo: user?.photoURL },
-    };
-    // add form data on mongodb by axios
-
-    try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/add-food`, formData);
-      form.reset();
-      toast.success("Food Added Successfully");
-      navigate("/my-foods");
-    } catch (err) {
-      toast.error(err.message);
-      console.log(err);
-    }
-  };
   return (
     <div>
       <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-4">
         <form
-          onSubmit={handleSubmit}
+          //   onSubmit={handleSubmit}
           className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
         >
           <h2 className="text-3xl font-bold text-gray-800 text-center">
-            Add New Food
+            Update Food
           </h2>
 
           {/* Form Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* food name */}
+            {/* Image Upload */}
             <div>
               <label
                 htmlFor="foodName"
@@ -71,7 +32,7 @@ const AddFood = () => {
               />
             </div>
 
-            {/* food photo */}
+            {/* food url */}
             <div>
               <label
                 htmlFor="image"
@@ -200,9 +161,11 @@ const AddFood = () => {
               />
             </div>
           </div>
+
+          {/* Submit Button */}
           <div className="flex justify-center">
             <button className="bg-blue-500 text-white w-full px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition transform duration-300 hover:scale-105 active:scale-95">
-              Add Food
+              Update Food
             </button>
           </div>
         </form>
@@ -211,4 +174,4 @@ const AddFood = () => {
   );
 };
 
-export default AddFood;
+export default UpdateFood;
