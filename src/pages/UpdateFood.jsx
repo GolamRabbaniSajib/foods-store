@@ -1,13 +1,29 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const UpdateFood = () => {
   const { user } = useContext(AuthContext);
+  const { id } = useParams();
+  const [food, setFood] = useState({});
+
+  useEffect(() => {
+    fetchFoodData();
+  }, [id]);
+
+  const fetchFoodData = async () => {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/food/${id}`
+    );
+    setFood(data);
+  };
+  
   return (
     <div>
       <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-4">
         <form
-          //   onSubmit={handleSubmit}
+        //   onSubmit={handleSubmit}
           className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
         >
           <h2 className="text-3xl font-bold text-gray-800 text-center">
@@ -27,6 +43,7 @@ const UpdateFood = () => {
               <input
                 type="text"
                 name="foodName"
+                defaultValue={food.foodName}
                 placeholder="Enter Food Name"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -43,6 +60,7 @@ const UpdateFood = () => {
               <input
                 type="text"
                 name="photo"
+                defaultValue={food.foodImage}
                 placeholder="Enter food image (URL)"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -59,6 +77,7 @@ const UpdateFood = () => {
               <input
                 type="text"
                 name="categoryName"
+                defaultValue={food.category}
                 placeholder="Enter category name"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -75,6 +94,7 @@ const UpdateFood = () => {
               <input
                 type="number"
                 name="price"
+                defaultValue={food.price}
                 placeholder="Enter price"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -90,6 +110,7 @@ const UpdateFood = () => {
               </label>
               <textarea
                 name="description"
+                defaultValue={food.description}
                 placeholder="Enter item description"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -105,6 +126,7 @@ const UpdateFood = () => {
               </label>
               <input
                 type="number"
+                defaultValue={food.quantity}
                 name="quantity"
                 placeholder="Enter quantity"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
@@ -122,6 +144,7 @@ const UpdateFood = () => {
               <input
                 type="text"
                 name="foodOrigin"
+                defaultValue={food.foodOrigin}
                 placeholder="e.g., Italy"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />

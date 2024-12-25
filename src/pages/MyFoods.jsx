@@ -1,6 +1,21 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
+import axios from "axios";
 
 const MyFoods = () => {
+  const { user } = useContext(AuthContext);
+  const [foods, setFoods] = useState([]);
+  useEffect(() => {
+    fetchAllFoods();
+  }, [user]);
+
+  const fetchAllFoods = async () => {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/foods/${user?.email}`
+    );
+    setFoods(data);
+  };
   return (
     <div>
       <div className="container mx-auto p-6">
@@ -15,24 +30,26 @@ const MyFoods = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-t">
-              <td className="px-4 py-2">
-                <img
-                  src={"food.image"}
-                  alt={"food.name"}
-                  className="w-16 h-16 rounded"
-                />
-              </td>
-              <td className="px-4 py-2">{"food.name"}</td>
-              <td className="px-4 py-2">${"food.price"}</td>
-              <td className="px-4 py-2">
-                <Link to={`/updateFood/${1}`}>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Update
-                  </button>
-                </Link>
-              </td>
-            </tr>
+            {foods.map((food) => (
+              <tr key={food._id} className="border-t">
+                <td className="px-4 py-2">
+                  <img
+                    src={food.foodImage}
+                    alt={food.foodName}
+                    className="w-16 h-16 rounded"
+                  />
+                </td>
+                <td className="px-4 py-2">{food.foodName}</td>
+                <td className="px-4 py-2">${food.price}</td>
+                <td className="px-4 py-2">
+                  <Link to={`/updateFood/${food._id}`}>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                      Update
+                    </button>
+                  </Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
