@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UpdateFood = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
   const [food, setFood] = useState({});
 
   useEffect(() => {
@@ -18,12 +20,49 @@ const UpdateFood = () => {
     );
     setFood(data);
   };
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // get data from input
+    const form = e.target;
+    const foodName = form.foodName.value;
+    const foodImage = form.photo.value;
+    const category = form.categoryName.value;
+    const price = parseFloat(form.price.value);
+    const description = form.description.value;
+    const quantity = parseFloat(form.quantity.value);
+    const foodOrigin = form.foodOrigin.value;
+    const email = form.email.value;
+    const userName = form.userName.value;
+    const formData = {
+      foodName,
+      foodImage,
+      category,
+      price,
+      description,
+      quantity,
+      foodOrigin,
+      buyer: { email, userName, photo: user?.photoURL },
+    };
+    // add form data on mongodb by axios
+
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/update-food/${id}`,
+        formData
+      );
+      form.reset();
+      toast.success("Food Updated Successfully");
+      navigate("/my-foods");
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
   return (
     <div>
       <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-4">
         <form
-        //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
         >
           <h2 className="text-3xl font-bold text-gray-800 text-center">
