@@ -44,8 +44,8 @@ features are:
 - yet-another-react-lightbox
 
 ## Link
+https://restaurant-management-we-d753f.web.app/
+## Links for Source Code
 
-## Links for visit
-
-- Github: ( )
-- Live: ( )
+- Github Client: ( https://github.com/programming-hero-web-course2/b10a11-client-side-sbsajibsx )
+- Github Server: ( https://github.com/programming-hero-web-course2/b10a11-server-side-sbsajibsx )
