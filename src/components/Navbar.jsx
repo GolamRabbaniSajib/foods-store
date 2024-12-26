@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const links = (
@@ -44,12 +45,18 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <Link className="btn btn-ghost text-xl"><span className="text-green-400">Food</span><span className="text-red-400">Store</span></Link>
+        <Link className="btn btn-ghost text-xl">
+          <span className="text-green-400">Food</span>
+          <span className="text-red-400">Store</span>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
+        <div>
+          <ThemeToggle></ThemeToggle>
+        </div>
         <div>
           {!user && (
             <li>

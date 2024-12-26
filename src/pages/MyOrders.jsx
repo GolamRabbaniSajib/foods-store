@@ -2,6 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,49 @@ const MyOrders = () => {
       `${import.meta.env.VITE_API_URL}/purchase-food/${user?.email}`
     );
     setFoods(data);
+  };
+  // delete a job
+
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/purchase-food/${id}`
+      );
+      toast.success("Food Delete Successfully");
+      fetchAllFoods();
+      console.log(data);
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
+  const modalDelete = (id) => {
+    toast((t) => (
+      <div className="flex items-center gap-3">
+        <div>
+          <p>
+            Are You <b>Sure</b>
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <button
+            className="bg-red-400 px-3 py-1 rounded-md"
+            onClick={() => {
+              toast.dismiss(t.id);
+              handleDelete(id);
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-green-400 px-3 py-1 rounded-md"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
   };
   return (
     <div>
@@ -34,7 +78,9 @@ const MyOrders = () => {
               <p className="text-gray-700">
                 Bought On: {moment(food.buyingDate).format("lll")}
               </p>
-              <button className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+              <button
+              onClick={()=>modalDelete(food._id)}
+              className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
                 Delete
               </button>
             </div>

@@ -20,8 +20,10 @@ const FoodPurchase = () => {
   const foodOrigin = food.foodOrigin;
   const email = food.buyer?.email;
   const userName = food.buyer?.userName;
+  const foodId = food._id
 
-  const foodData = {
+  const newFoodData = {
+    foodId,
     foodName,
     foodImage,
     category,
@@ -61,9 +63,8 @@ const FoodPurchase = () => {
       return;
     }
     const quantity = parseFloat(food.quantity - inputQuantity);
-    const purchaseCount = parseFloat(food.purchaseCount + 1);
 
-    const formData = { quantity, purchaseCount };
+    const formData = { quantity };
 
     // edit form data on mongodb by axios
 
@@ -83,7 +84,7 @@ const FoodPurchase = () => {
     try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/add-purchase-food`,
-        foodData
+        newFoodData
       );
       form.reset();
       navigate("/my-orders");

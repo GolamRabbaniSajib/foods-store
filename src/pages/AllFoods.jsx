@@ -2,16 +2,20 @@ import { IoSearchSharp } from "react-icons/io5";
 import foodBgImage from "../assets/allfoodbg.avif";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
+  const [search, setSearch] = useState("");
   useEffect(() => {
+    const fetchAllFoods = async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/foods?search=${search}`
+      );
+      setFoods(data);
+    };
     fetchAllFoods();
-  }, []);
+  }, [search]);
 
-  const fetchAllFoods = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/foods`);
-    setFoods(data);
-  };
   return (
     <div className="container mx-auto">
       <section
@@ -27,6 +31,7 @@ const AllFoods = () => {
           <div className="relative">
             <input
               type="text"
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               className="px-4 py-2 w-80 text-gray-700 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
@@ -38,7 +43,10 @@ const AllFoods = () => {
       </section>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 w-11/12 mx-auto">
         {foods.map((food) => (
-          <div key={food._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+          <div
+            key={food._id}
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+          >
             {/* Image Section */}
             <div className="relative">
               <img
@@ -75,9 +83,11 @@ const AllFoods = () => {
               </div>
 
               {/* Button */}
-              <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-lg font-medium hover:from-purple-600 hover:to-blue-500 transition-colors duration-200">
-                Purchase
-              </button>
+              <Link to={`/food/${food._id}`}>
+                <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 rounded-lg font-medium hover:from-purple-600 hover:to-blue-500 transition-colors duration-200">
+                  Purchase
+                </button>
+              </Link>
             </div>
           </div>
         ))}
