@@ -2,6 +2,7 @@ import { useState } from "react";
 import foodBgImage from "../assets/allfoodbg.avif";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { Helmet } from "react-helmet-async";
 
 const Gallery = () => {
   const staticImages = [
@@ -25,6 +26,9 @@ const Gallery = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Food | Gallery</title>
+      </Helmet>
       <section
         className="relative bg-cover bg-center h-80 flex items-center justify-center text-green-400"
         style={{ backgroundImage: `url(${foodBgImage})` }}
@@ -45,7 +49,7 @@ const Gallery = () => {
               {/* Image */}
               <img
                 src={image}
-                alt={'sajib'}
+                alt={"sajib"}
                 className="w-full h-48 object-cover transition-opacity duration-300 group-hover:opacity-50"
               />
 

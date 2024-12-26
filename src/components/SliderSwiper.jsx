@@ -46,7 +46,7 @@ const SliderSwiper = () => {
               <div className="flex items-center justify-center">
                 <img
                   className="rounded-full w-20 h-20"
-                  src="https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt=""
                 />
               </div>
@@ -58,38 +58,34 @@ const SliderSwiper = () => {
           <SwiperSlide>
             <div className="w-9/12 mx-auto space-y-8 pb-10">
               <p className="text-center text-2xl font-medium text-white">
-                Interactively target efficient ideas before open-source supply
-                chains. Conveniently fabricate state of the art channels
-                vis-a-vis dynamic ROI. Proactively productize virtual.
+              I was not thrilled with this recipe, the cookies did not spread while baking and it is my belief that there is not enough butter in the recipe. I won't be making them again. Not using this recipe.
               </p>
               <div className="flex items-center justify-center">
                 <img
                   className="rounded-full w-20 h-20"
-                  src="https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt=""
                 />
               </div>
               <p className="text-center text-white font-bold text-xl">
-                Nate Wilson, 2 Days Ago
+                Rajib Mia, 4 Days Ago
               </p>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <div className="w-9/12 mx-auto space-y-8 pb-10">
               <p className="text-center text-2xl font-medium text-white">
-                Interactively target efficient ideas before open-source supply
-                chains. Conveniently fabricate state of the art channels
-                vis-a-vis dynamic ROI. Proactively productize virtual.
+              Continually architect global processes via bleeding-edge partnerships. Phosfluorescently leverage other's client-based leadership after transparent paradigms. Compellingly foster an expanded array of growth strategies for intuitive catalysts.
               </p>
               <div className="flex items-center justify-center">
                 <img
                   className="rounded-full w-20 h-20"
-                  src="https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt=""
                 />
               </div>
               <p className="text-center text-white font-bold text-xl">
-                Nate Wilson, 2 Days Ago
+                Sadiya Jannat, 1 Days Ago
               </p>
             </div>
           </SwiperSlide>

@@ -3,6 +3,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const UpdateFood = () => {
   const { user } = useContext(AuthContext);
@@ -60,6 +61,9 @@ const UpdateFood = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Food | Update Food</title>
+      </Helmet>
       <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4 py-4">
         <form
           onSubmit={handleSubmit}

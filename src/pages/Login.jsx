@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const [show, setShow] = useState(false);
   const { logIn, setUser, signInWithGoogle } = useContext(AuthContext);
@@ -39,17 +40,22 @@ const Login = () => {
   // Google Signin
   const handleGoogleLogin = async () => {
     try {
-      await signInWithGoogle()
+      await signInWithGoogle();
 
-      toast.success('Signin Successful')
-      navigate(navigate(location?.state ? location.state : "/"), { replace: true })
+      toast.success("Signin Successful");
+      navigate(navigate(location?.state ? location.state : "/"), {
+        replace: true,
+      });
     } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
+      console.log(err);
+      toast.error(err?.message);
     }
-  }
+  };
   return (
     <div>
+      <Helmet>
+        <title>Food | Login</title>
+      </Helmet>
       <div className="flex justify-center items-center min-h-screen">
         <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-xl p-6 border">
           <h1 className="text-4xl font-bold">Login</h1>

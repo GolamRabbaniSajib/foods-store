@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import errorImg from "../assets/electrocuted-caveman-animation-404-error-page.gif";
+import { Helmet } from "react-helmet-async";
 
 const Error = () => {
   return (
     <div>
+      <Helmet>
+        <title>Food | Error</title>
+      </Helmet>
       <div className="card bg-base-100 min-h-screen shadow-xl">
         <figure className="px-10 py-1 flex justify-center">
           <img

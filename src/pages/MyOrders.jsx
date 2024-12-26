@@ -3,8 +3,11 @@ import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const MyOrders = () => {
+  const { axiosSecure } = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const [foods, setFoods] = useState([]);
   useEffect(() => {
@@ -12,12 +15,10 @@ const MyOrders = () => {
   }, [user]);
 
   const fetchAllFoods = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/purchase-food/${user?.email}`
-    );
+    const { data } = await axiosSecure.get(`/purchase-food/${user?.email}`);
     setFoods(data);
   };
-  // delete a job
+  // delete a food
 
   const handleDelete = async (id) => {
     try {
@@ -62,6 +63,9 @@ const MyOrders = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Food | My Orders</title>
+      </Helmet>
       <div className="container mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">Ordered Foods</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -79,8 +83,9 @@ const MyOrders = () => {
                 Bought On: {moment(food.buyingDate).format("lll")}
               </p>
               <button
-              onClick={()=>modalDelete(food._id)}
-              className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+                onClick={() => modalDelete(food._id)}
+                className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              >
                 Delete
               </button>
             </div>

@@ -3,6 +3,7 @@ import foodBgImage from "../assets/allfoodbg.avif";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,6 +19,9 @@ const AllFoods = () => {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>Food | All Food</title>
+      </Helmet>
       <section
         className="relative bg-cover bg-center h-80 flex items-center justify-center text-white"
         style={{ backgroundImage: `url(${foodBgImage})` }}
@@ -64,7 +68,9 @@ const AllFoods = () => {
               <h2 className="text-xl font-bold text-gray-800 mb-2">
                 {food.foodName}
               </h2>
-              <p className="text-gray-600 text-sm mb-4">{food.description}</p>
+              <p className="text-gray-600 text-sm mb-4">
+                {food.description.substring(0, 40)}...
+              </p>
               <div className="grid grid-cols-2 gap-4 text-gray-700 text-sm mb-4">
                 <div>
                   <span className="font-semibold">Category:</span>{" "}

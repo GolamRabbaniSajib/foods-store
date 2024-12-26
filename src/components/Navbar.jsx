@@ -60,7 +60,12 @@ const Navbar = () => {
         <div>
           {!user && (
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/login">
+                <button className="relative group px-4 py-2 text-lg font-semibold text-white bg-blue-500 rounded-lg overflow-hidden shadow-md hover:bg-blue-600 transition duration-300">
+                  <span className="absolute inset-0 w-0 h-full bg-purple-500 transition-all duration-300 ease-out group-hover:w-full"></span>
+                  <span className="relative z-10">Login</span>
+                </button>
+              </Link>
             </li>
           )}
           {user && (

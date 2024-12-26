@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, AuthContext } from "../provider/AuthProvider";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const [show, setShow] = useState(false);
@@ -61,6 +62,9 @@ const Register = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Food | Register</title>
+      </Helmet>
       <div className="flex justify-center items-center min-h-screen">
         <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-xl p-6 border">
           <h1 className="text-4xl font-bold">Register your account</h1>

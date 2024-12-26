@@ -12,6 +12,7 @@ import AllFoods from "../pages/AllFoods";
 import FoodCard from "../components/FoodCard";
 import FoodPurchase from "../pages/FoodPurchase";
 import UpdateFood from "../pages/UpdateFood";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -33,15 +34,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-food",
-        element: <AddFood></AddFood>,
+        element: (
+          <PrivateRoute>
+            <AddFood></AddFood>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-foods",
-        element: <MyFoods></MyFoods>,
+        element: (
+          <PrivateRoute>
+            <MyFoods></MyFoods>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-orders",
-        element: <MyOrders></MyOrders>,
+        element: (
+          <PrivateRoute>
+            <MyOrders></MyOrders>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/gallery",
@@ -56,13 +69,17 @@ const router = createBrowserRouter([
         element: <FoodCard></FoodCard>,
       },
       {
-        path: '/foodPurchase/:id',
-        element: <FoodPurchase></FoodPurchase>
+        path: "/foodPurchase/:id",
+        element: (
+          <PrivateRoute>
+            <FoodPurchase></FoodPurchase>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/updateFood/:id',
-        element: <UpdateFood></UpdateFood>
-      }
+        path: "/updateFood/:id",
+        element: <UpdateFood></UpdateFood>,
+      },
     ],
   },
 ]);

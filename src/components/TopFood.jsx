@@ -9,14 +9,16 @@ const TopFood = () => {
   }, []);
 
   const fetchAllFoods = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/top-foods`);
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API_URL}/top-foods`
+    );
     setFoods(data);
   };
 
   return (
     <div className="container mx-auto p-6">
       <div className="space-y-5 pb-20">
-        <h1 className="text-center font-bold text-5xl">Top Foods by Selling</h1>
+        <h1 className="text-center font-bold text-5xl"><span className="text-green-400">Top Foods</span> <span className="text-blue-400">by Selling</span></h1>
         <p className="font-bold text-xl text-gray-500 text-center">
           Welcome to The Biggest Network of Food Ordering & Delivery
         </p>
@@ -30,9 +32,11 @@ const TopFood = () => {
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
             <h3 className="text-xl font-semibold">{food.foodName}</h3>
-            <p className="text-gray-600 mt-2">{food.description}</p>
+            <p className="text-gray-600 mt-2">
+              Price: <span className="text-green-400">{food.price}</span>
+            </p>
             <p className="text-gray-700 font-bold mt-2">
-              Sales: {food.purchaseCount}
+              Available: {food.quantity}
             </p>
             <div className="mt-4">
               <Link

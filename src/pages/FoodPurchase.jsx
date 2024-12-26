@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const FoodPurchase = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const FoodPurchase = () => {
   const foodOrigin = food.foodOrigin;
   const email = food.buyer?.email;
   const userName = food.buyer?.userName;
-  const foodId = food._id
+  const foodId = food._id;
 
   const newFoodData = {
     foodId,
@@ -95,6 +96,9 @@ const FoodPurchase = () => {
   };
   return (
     <div className="container mx-auto p-6">
+      <Helmet>
+        <title>Food | Food Purchase</title>
+      </Helmet>
       <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Purchase Food</h1>
         <form onSubmit={handleSubmit}>
