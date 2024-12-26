@@ -99,40 +99,34 @@ const FoodPurchase = () => {
       <Helmet>
         <title>Food | Food Purchase</title>
       </Helmet>
-      <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Purchase Food</h1>
+      <div className="max-w-lg mx-auto border rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-bold mb-6">Purchase Food</h1>
         <form onSubmit={handleSubmit}>
           {/* Food Name */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Food Name
-            </label>
+            <label className="block  font-semibold mb-2">Food Name</label>
             <input
               type="text"
               defaultValue={food.foodName}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg  focus:outline-none"
             />
           </div>
 
           {/* Price */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Price
-            </label>
+            <label className="block  font-semibold mb-2">Price</label>
             <input
               type="text"
               defaultValue={food.price}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg  focus:outline-none"
             />
           </div>
 
           {/* Quantity */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Quantity
-            </label>
+            <label className="block  font-semibold mb-2">Quantity</label>
             <input
               type="number"
               name="quantity"
@@ -142,27 +136,23 @@ const FoodPurchase = () => {
 
           {/* Buyer Name */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Buyer Name
-            </label>
+            <label className="block  font-semibold mb-2">Buyer Name</label>
             <input
               type="text"
               defaultValue={user?.displayName}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg  focus:outline-none"
             />
           </div>
 
           {/* Buyer Email */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Buyer Email
-            </label>
+            <label className="block  font-semibold mb-2">Buyer Email</label>
             <input
               type="email"
               defaultValue={user?.email}
               readOnly
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 focus:outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg  focus:outline-none"
             />
           </div>
 

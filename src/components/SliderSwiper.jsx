@@ -18,7 +18,9 @@ const SliderSwiper = () => {
       style={{ backgroundImage: `url(${swiperImage})` }}
     >
       <div className="space-y-4 text-center mb-36 pt-20">
-        <h1 className="text-6xl font-semibold text-white">Clients About Us</h1>
+        <h1 className="text-4xl md:text-6xl font-semibold text-white">
+          Clients About Us
+        </h1>
         <p>Testimonials</p>
       </div>
       <div className=" flex items-center justify-center">
@@ -58,7 +60,10 @@ const SliderSwiper = () => {
           <SwiperSlide>
             <div className="w-9/12 mx-auto space-y-8 pb-10">
               <p className="text-center text-2xl font-medium text-white">
-              I was not thrilled with this recipe, the cookies did not spread while baking and it is my belief that there is not enough butter in the recipe. I won't be making them again. Not using this recipe.
+                I was not thrilled with this recipe, the cookies did not spread
+                while baking and it is my belief that there is not enough butter
+                in the recipe. I won't be making them again. Not using this
+                recipe.
               </p>
               <div className="flex items-center justify-center">
                 <img
@@ -75,7 +80,10 @@ const SliderSwiper = () => {
           <SwiperSlide>
             <div className="w-9/12 mx-auto space-y-8 pb-10">
               <p className="text-center text-2xl font-medium text-white">
-              Continually architect global processes via bleeding-edge partnerships. Phosfluorescently leverage other's client-based leadership after transparent paradigms. Compellingly foster an expanded array of growth strategies for intuitive catalysts.
+                Continually architect global processes via bleeding-edge
+                partnerships. Phosfluorescently leverage other's client-based
+                leadership after transparent paradigms. Compellingly foster an
+                expanded array of growth strategies for intuitive catalysts.
               </p>
               <div className="flex items-center justify-center">
                 <img

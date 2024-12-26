@@ -49,7 +49,7 @@ const AllFoods = () => {
         {foods.map((food) => (
           <div
             key={food._id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+            className="border rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
           >
             {/* Image Section */}
             <div className="relative">
@@ -65,13 +65,11 @@ const AllFoods = () => {
 
             {/* Content Section */}
             <div className="p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-2">
-                {food.foodName}
-              </h2>
-              <p className="text-gray-600 text-sm mb-4">
+              <h2 className="text-xl font-bold mb-2">{food.foodName}</h2>
+              <p className=" text-sm mb-4">
                 {food.description.substring(0, 40)}...
               </p>
-              <div className="grid grid-cols-2 gap-4 text-gray-700 text-sm mb-4">
+              <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                 <div>
                   <span className="font-semibold">Category:</span>{" "}
                   {food.category}

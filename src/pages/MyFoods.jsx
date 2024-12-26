@@ -23,9 +23,9 @@ const MyFoods = () => {
       </Helmet>
       <div className="container mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">My Foods</h1>
-        <table className="table-auto w-full bg-white shadow-lg rounded-lg">
+        <table className="table-auto w-full  shadow-lg rounded-lg">
           <thead>
-            <tr className="bg-gray-200 text-left">
+            <tr className=" text-left">
               <th className="px-4 py-2">Image</th>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Price</th>

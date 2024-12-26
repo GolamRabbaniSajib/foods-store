@@ -3,7 +3,10 @@ const Footer = () => {
     <div>
       <footer className="footer footer-center bg-green-200 text-base-content rounded p-10">
         <div>
-            <p className="text-6xl font-semibold">FOOD STORE</p>
+          <p className="text-4xl md:text-6xl font-semibold">
+            <span className="text-green-400">FOOD</span>{" "}
+            <span className="text-red-400">STORE</span>
+          </p>
         </div>
         <nav className="grid grid-flow-col gap-4">
           <a className="link link-hover">About us</a>
@@ -50,8 +53,9 @@ const Footer = () => {
         </nav>
         <aside>
           <p>
-            Copyright © {new Date().getFullYear()} - All right reserved by ACME
-            Industries Ltd
+            Copyright © {new Date().getFullYear()} - All right reserved by{" "}
+            <span className="text-green-400">Food</span>
+            <span className="text-red-400">Store</span>
           </p>
         </aside>
       </footer>
