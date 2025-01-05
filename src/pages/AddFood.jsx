@@ -66,6 +66,7 @@ const AddFood = () => {
               <input
                 type="text"
                 name="foodName"
+                required
                 placeholder="Enter Food Name"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -79,6 +80,7 @@ const AddFood = () => {
               <input
                 type="text"
                 name="photo"
+                required
                 placeholder="Enter food image (URL)"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -92,6 +94,7 @@ const AddFood = () => {
               <input
                 type="text"
                 name="categoryName"
+                required
                 placeholder="Enter category name"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -105,6 +108,7 @@ const AddFood = () => {
               <input
                 type="number"
                 name="price"
+                required
                 placeholder="Enter price"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -117,6 +121,7 @@ const AddFood = () => {
               </label>
               <textarea
                 name="description"
+                required
                 placeholder="Enter item description"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
               />
@@ -129,6 +134,7 @@ const AddFood = () => {
               </label>
               <input
                 type="number"
+                required
                 name="quantity"
                 placeholder="Enter quantity"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
@@ -142,6 +148,7 @@ const AddFood = () => {
               </label>
               <input
                 type="text"
+                required
                 name="foodOrigin"
                 placeholder="e.g., Italy"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
