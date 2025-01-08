@@ -16,15 +16,10 @@ react
 <br>
 FireBase
 <br>
-
 Node Js
-
 <br>
-
 Mongodb
-
 <br>
-
 JWT
 
 # 5 key features of the project
