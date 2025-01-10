@@ -14,7 +14,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const SliderSwiper = () => {
   return (
     <div
-      className="object-cover"
+      className="object-cover relative"
       style={{
         backgroundImage: `url(${swiperImage})`,
         backgroundSize: "cover",
@@ -22,12 +22,13 @@ const SliderSwiper = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className=" container mx-auto">
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className=" w-11/12 mx-auto">
         <div className="space-y-4 text-center mb-36 pt-20">
-          <h1 className="text-4xl md:text-6xl font-semibold text-white">
+          <h1 className="text-4xl md:text-6xl font-semibold text-green-400">
             Clients About Us
           </h1>
-          <p>Testimonials</p>
+          <p className="text-white font-semibold">Testimonials</p>
         </div>
         <div className=" flex items-center justify-center">
           <Swiper

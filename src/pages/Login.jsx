@@ -52,18 +52,18 @@ const Login = () => {
     }
   };
   return (
-    <div>
+    <div className="py-6">
       <Helmet>
         <title>Food | Login</title>
       </Helmet>
       <div className="flex justify-center items-center min-h-screen">
-        <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-xl p-6 border">
+        <div className="card w-full max-w-lg shrink-0 shadow-xl p-6 border">
           <h1 className="text-4xl font-bold">Login</h1>
 
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-bold">Email</span>
+                <span className="text-sm font-bold">Email</span>
               </label>
               <input
                 name="email"
@@ -75,7 +75,7 @@ const Login = () => {
             </div>
             <div className="form-control relative">
               <label className="label">
-                <span className="label-text font-bold">Password</span>
+                <span className="text-sm font-bold">Password</span>
               </label>
               <input
                 name="password"
@@ -96,10 +96,10 @@ const Login = () => {
                 {error.login}
               </label>
             )}
-            <label className="label">
+            <label className="">
               <Link
                 to="/auth/forgot"
-                className="label-text-alt link link-hover"
+                className="text-xs"
               >
                 Forgot password?
               </Link>

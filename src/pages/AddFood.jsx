@@ -45,14 +45,14 @@ const AddFood = () => {
     }
   };
   return (
-    <div>
+    <div className="min-h-screen">
       <Helmet>
         <title>Food | Add Food</title>
       </Helmet>
       <div className=" min-h-screen flex items-center justify-center px-4 py-4">
         <form
           onSubmit={handleSubmit}
-          className="border shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
+          className="border min-h-screen shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
         >
           <h2 className="text-3xl font-bold  text-center">Add New Food</h2>
 

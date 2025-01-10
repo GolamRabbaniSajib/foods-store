@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center bg-green-200 dark:bg-gray-900 dark:text-gray-100 text-base-content rounded p-10">
+      <footer className="footer border-t footer-center bg-green-200 dark:bg-gray-900 dark:text-gray-100 text-base-content rounded p-10">
         <div>
           <p className="text-4xl md:text-6xl font-semibold">
             <span className="text-green-400">FOOD</span>{" "}
@@ -54,8 +54,8 @@ const Footer = () => {
         <aside>
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by{" "}
-            <span className="text-green-400">Food</span>
-            <span className="text-red-400">Store</span>
+            <span className="text-green-400 font-black">Food </span>
+            <span className="text-red-400 font-bold">Store</span>
           </p>
         </aside>
       </footer>

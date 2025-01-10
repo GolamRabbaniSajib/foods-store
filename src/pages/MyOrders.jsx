@@ -66,32 +66,42 @@ const MyOrders = () => {
       <Helmet>
         <title>Food | My Orders</title>
       </Helmet>
-      <div className="container mx-auto p-6">
+      <div className="w-11/12 mx-auto p-6">
         <h1 className="text-2xl font-bold mb-4">Ordered Foods</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {foods.map((food) => (
-            <div key={food._id} className="border p-4 rounded-lg shadow-lg">
-              <img
-                src={food.foodImage}
-                alt={food.foodName}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold">{food.foodName}</h3>
-                <p className="">Price: ${food.price}</p>
-                <p className="">Owner: {food.postedUserEmail}</p>
-                <p className="">
-                  Bought On: {moment(food.buyingDate).format("lll")}
-                </p>
-              </div>
-              <button
-                onClick={() => modalDelete(food._id)}
-                className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
-              >
-                Delete
-              </button>
+        <div className="min-h-screen">
+          {foods.length === 0 ? (
+            <div className="flex justify-center items-center">
+              <p className="text-red-400 text-4xl font-bold">no item you order</p>
             </div>
-          ))}
+          ) : (
+            <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {foods.map((food) => (
+                <div key={food._id} className="border p-4 rounded-lg shadow-lg">
+                  <img
+                    src={food.foodImage}
+                    alt={food.foodName}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-semibold">{food.foodName}</h3>
+                    <p className="">Price: ${food.price}</p>
+                    <p className="">
+                      <span>Owner:</span> <br /> {food.postedUserEmail}
+                    </p>
+                    <p className="">
+                      Bought On: {moment(food.buyingDate).format("lll")}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => modalDelete(food._id)}
+                    className="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

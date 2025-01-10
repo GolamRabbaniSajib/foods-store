@@ -19,10 +19,10 @@ const Navbar = () => {
   );
   const { user, logOut } = useContext(AuthContext);
   return (
-    <div className="bg-green-200 dark:bg-gray-900 dark:text-gray-100 fixed z-20 w-full">
+    <div className="bg-green-200 border-b dark:bg-gray-900 dark:text-gray-100 fixed z-20 w-full">
       <div className="navbar w-11/12 mx-auto">
         <div className="navbar-start">
-          <div className="dropdown">
+          <div className="dropdown ">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-200 dark:bg-gray-900 dark:text-gray-100 border rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {links}
             </ul>
@@ -54,8 +54,8 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end">
-          <div>
+        <div className="navbar-end flex items-center">
+          <div className="mr-2">
             <ThemeToggle></ThemeToggle>
           </div>
           <div>
@@ -86,7 +86,7 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-48"
+                  className="menu menu-sm bg-base-200 dropdown-content mt-3 z-[1] p-2 shadow dark:bg-gray-900 dark:text-gray-100 border rounded-box w-48"
                 >
                   <li>
                     <Link to="/add-food" className="justify-between">
@@ -102,7 +102,7 @@ const Navbar = () => {
                   <li className="mt-2">
                     <button
                       onClick={logOut}
-                      className="bg-gray-200 block text-center"
+                      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 transition-colors duration-200 block text-center"
                     >
                       Logout
                     </button>

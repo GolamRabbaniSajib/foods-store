@@ -1,9 +1,12 @@
 import { IoSearchSharp } from "react-icons/io5";
+import { IoMdPricetags } from "react-icons/io";
+import { MdProductionQuantityLimits } from "react-icons/md";
 import foodBgImage from "../assets/allfoodbg.avif";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { GiWorld } from "react-icons/gi";
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,7 +21,7 @@ const AllFoods = () => {
   }, [search]);
 
   return (
-    <div className="container mx-auto">
+    <div className="">
       <Helmet>
         <title>Food | All Food</title>
       </Helmet>
@@ -45,7 +48,7 @@ const AllFoods = () => {
           </div>
         </div>
       </section>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 w-11/12 mx-auto min-h-screen">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-6 w-11/12 mx-auto min-h-screen">
         {foods.map((food) => (
           <div
             key={food._id}
@@ -59,32 +62,42 @@ const AllFoods = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="absolute top-3 left-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full uppercase font-semibold shadow-md">
-                New
+                {food.category}
               </div>
             </div>
 
             {/* Content Section */}
-            <div className="p-6">
+            <div className="px-6 pt-2 pb-4">
               <h2 className="text-xl font-bold mb-2">{food.foodName}</h2>
               <p className=" text-sm mb-4">
                 {food.description.substring(0, 40)}...
               </p>
-              <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                <div className="grid grid-cols-2 gap-4 border-r-2 border-green-500">
-                  <span className="font-semibold">Category:</span>{" "}
-                  <span>{food.category}</span>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <span className="font-semibold">Origin:</span>{" "}
+              <div className=" text-sm mb-4">
+                <div className="grid grid-cols-2 my-2">
+                  <span className="font-semibold flex items-center space-x-1">
+                    <GiWorld /> <span>Origin:</span>
+                  </span>{" "}
                   <span>{food?.foodOrigin}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-4 border-r-2 border-green-500">
-                  <span className="font-semibold">Price:</span>{" "}
-                  <span className="text-[#F76F2A]">${food.price}</span>
+                <div className="grid grid-cols-2 ">
+                  <span className="font-semibold flex items-center space-x-1">
+                    <IoMdPricetags /> <span>Price:</span>
+                  </span>{" "}
+                  <span className="text-blue-400 font-semibold">
+                    ${food.price}
+                  </span>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <span className="font-semibold">Quantity:</span>{" "}
-                  <span>{food.quantity}</span>
+                <div className="grid grid-cols-2 my-2">
+                  <span className="font-semibold flex items-center space-x-1">
+                    <MdProductionQuantityLimits /> <span>Quantity:</span>
+                  </span>{" "}
+                  <span
+                    className={
+                      food.quantity === 0 ? "text-red-400" : "text-green-400"
+                    }
+                  >
+                    {food.quantity}
+                  </span>
                 </div>
               </div>
 

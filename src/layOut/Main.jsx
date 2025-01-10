@@ -8,7 +8,7 @@ const Main = () => {
       <nav>
         <Navbar></Navbar>
       </nav>
-      <main className="pt-16 dark:bg-gray-900 dark:text-gray-100">
+      <main className="pt-16 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
         <Outlet></Outlet>
       </main>
       <Footer></Footer>

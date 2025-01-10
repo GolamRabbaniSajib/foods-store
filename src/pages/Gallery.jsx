@@ -39,7 +39,7 @@ const Gallery = () => {
           <h1 className="text-4xl font-bold">GALLERY</h1>
         </div>
       </section>
-      <div className="container mx-auto p-6">
+      <div className="w-11/12 mx-auto p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {staticImages.map((image, index) => (
             <div
