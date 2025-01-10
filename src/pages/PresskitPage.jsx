@@ -14,9 +14,9 @@ const PressKitPage = () => {
           <h2 className="text-3xl font-semibold mb-4">Company Overview</h2>
           <p className="text-lg mb-4">
             <span className="font-bold text-blue-500 dark:text-blue-400">
-              Food Store
+              Food Store 
             </span>
-            is an online platform where buyers can explore and purchase a wide
+             is an online platform where buyers can explore and purchase a wide
             variety of foods. With dynamic features, seamless navigation, and
             secure transactions, Food Store ensures a convenient and enjoyable
             shopping experience for food lovers.
@@ -56,7 +56,7 @@ const PressKitPage = () => {
           <h2 className="text-3xl font-semibold mb-4">Contact Information</h2>
           <p className="text-lg mb-2">For media inquiries, please contact:</p>
           <p className="text-lg">
-            <span className="font-bold">Name:</span> Jane Doe
+            <span className="font-bold">Name:</span> Sajib
           </p>
           <p className="text-lg">
             <span className="font-bold">Email:</span>{" "}
@@ -68,7 +68,7 @@ const PressKitPage = () => {
             </a>
           </p>
           <p className="text-lg">
-            <span className="font-bold">Phone:</span> +1 (123) 456-7890
+            <span className="font-bold">Phone:</span> 00000000
           </p>
         </section>
       </div>

@@ -89,7 +89,7 @@ const MyOrders = () => {
                       <span>Owner:</span> <br /> {food.postedUserEmail}
                     </p>
                     <p className="">
-                      Bought On: {moment(food.buyingDate).format("lll")}
+                      Buy On: {moment(food.buyingDate).format("lll")}
                     </p>
                   </div>
                   <button

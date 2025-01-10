@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import SliderSwiper from "../components/SliderSwiper";
 import TopFood from "../components/TopFood";
 import Work from "../components/Work";
+import Offer from "../components/Offer";
 
 const Home = () => {
   return (
@@ -19,8 +20,11 @@ const Home = () => {
       <Work></Work>
       </div>
       {/* Top Foods section */}
-      <div>
+      <div className="mb-36">
         <TopFood></TopFood>
+      </div>
+      <div className="mb-36">
+        <Offer></Offer>
       </div>
       {/* swiper */}
       <SliderSwiper></SliderSwiper>

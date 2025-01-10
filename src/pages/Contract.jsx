@@ -61,7 +61,7 @@ const Contact = () => {
               <button
                 onClick={handleClick}
                 type="submit"
-                className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none"
+                className="w-full bg-green-400 text-white py-3 rounded-lg hover:bg-green-600 focus:outline-none"
               >
                 Send Message
               </button>

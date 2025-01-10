@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const links = (
     <>
       <li>
@@ -15,9 +16,21 @@ const Navbar = () => {
       <li>
         <NavLink to={"/gallery"}>Gallery</NavLink>
       </li>
+      {user ? (
+        <li>
+          <Link to="/add-food">Add food</Link>
+        </li>
+      ) : (
+        <li>
+          <Link to="/aboutus">About Us</Link>
+        </li>
+      )}
+      <li>
+        <Link to="/contract">Contract</Link>
+      </li>
     </>
   );
-  const { user, logOut } = useContext(AuthContext);
+
   return (
     <div className="bg-green-200 border-b dark:bg-gray-900 dark:text-gray-100 fixed z-20 w-full">
       <div className="navbar w-11/12 mx-auto">
@@ -88,11 +101,6 @@ const Navbar = () => {
                   tabIndex={0}
                   className="menu menu-sm bg-base-200 dropdown-content mt-3 z-[1] p-2 shadow dark:bg-gray-900 dark:text-gray-100 border rounded-box w-48"
                 >
-                  <li>
-                    <Link to="/add-food" className="justify-between">
-                      Add food
-                    </Link>
-                  </li>
                   <li>
                     <Link to="/my-foods">My Foods</Link>
                   </li>

@@ -1,4 +1,3 @@
-
 import toast from "react-hot-toast";
 
 const JobPage = () => {
@@ -51,7 +50,7 @@ const JobPage = () => {
               <p className="mb-4">{job.description}</p>
               <button
                 onClick={() => handleClick(job.title)}
-                className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg"
+                className="inline-block px-6 py-2 mt-4 text-white bg-green-400 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300 transition-all duration-300"
               >
                 Apply Now
               </button>

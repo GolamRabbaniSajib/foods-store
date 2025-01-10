@@ -26,7 +26,7 @@ const FoodCard = () => {
     }
   };
   return (
-    <div className="container mx-auto p-6">
+    <div className="w-11/12 mx-auto p-6">
       <div className="max-w-4xl mx-auto border rounded-lg shadow-lg ">
         {/* Food Image */}
         <div className="relative group">
