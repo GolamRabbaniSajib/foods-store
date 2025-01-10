@@ -16,7 +16,7 @@ const TopFood = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="w-11/12 mx-auto p-6">
       <div className="space-y-5 pb-20">
         <h1 className="text-center font-bold text-4xl md:text-5xl">
           <span className="text-green-400">Top Foods</span>{" "}
@@ -37,7 +37,7 @@ const TopFood = () => {
             <h3 className="text-xl font-semibold text-center">
               {food.foodName}
             </h3>
-            <p>{food.description.substring(0, 60)}...</p>
+            <p>{food.description.substring(0, 50)}...</p>
             <div className="mt-4 flex justify-center items-center">
               <Link
                 to={`/food/${food._id}`}

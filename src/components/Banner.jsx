@@ -4,12 +4,18 @@ import bannerImage from "../assets/banner.avif";
 const Banner = () => {
   return (
     <div
-      className="relative  text-white py-20 mb-10"
-      style={{ backgroundImage: `url(${bannerImage})` }}
+      className="relative  text-white py-20"
+      style={{
+        backgroundImage: `url(${bannerImage})`,
+        height: "60vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div className="max-w-4xl mx-auto text-center px-6">
         <h1 className="text-5xl font-extrabold mb-4">
-          <span className="text-green-400">Welcome to</span> <span className="text-red-400">the Food Store</span>
+          <span className="text-green-400">Welcome to</span>{" "}
+          <span className="text-red-400">the Food Store</span>
         </h1>
         <p className="text-lg font-medium mb-6">
           Discover delicious recipes and add your own unique dishes to our

@@ -11,11 +11,13 @@ const Home = () => {
         <title>Food | Home</title>
       </Helmet>
       {/* banner */}
-      <div>
+      <div className="mb-36">
         <Banner></Banner>
       </div>
       {/* how to work section */}
+      <div className="mb-36">
       <Work></Work>
+      </div>
       {/* Top Foods section */}
       <div>
         <TopFood></TopFood>

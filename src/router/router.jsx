@@ -13,6 +13,10 @@ import FoodCard from "../components/FoodCard";
 import FoodPurchase from "../pages/FoodPurchase";
 import UpdateFood from "../pages/UpdateFood";
 import PrivateRoute from "./PrivateRoute";
+import AboutUs from "../pages/AboutUs";
+import Contact from "../pages/Contract";
+import JobPage from "../pages/JobPage";
+import PressKitPage from "../pages/PresskitPage";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +84,22 @@ const router = createBrowserRouter([
         path: "/updateFood/:id",
         element: <UpdateFood></UpdateFood>,
       },
+      {
+        path: '/aboutus',
+        element: <AboutUs></AboutUs>
+      },
+      {
+        path: '/contract',
+        element: <Contact></Contact>
+      },
+      {
+        path: '/job',
+        element: <JobPage></JobPage>
+      },
+      {
+        path: '/press',
+        element: <PressKitPage></PressKitPage>
+      }
     ],
   },
 ]);
