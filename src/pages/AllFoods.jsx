@@ -45,7 +45,7 @@ const AllFoods = () => {
           </div>
         </div>
       </section>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 w-11/12 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-6 w-11/12 mx-auto min-h-screen">
         {foods.map((food) => (
           <div
             key={food._id}
@@ -70,19 +70,21 @@ const AllFoods = () => {
                 {food.description.substring(0, 40)}...
               </p>
               <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                <div>
+                <div className="grid grid-cols-2 gap-4 border-r-2 border-green-500">
                   <span className="font-semibold">Category:</span>{" "}
-                  {food.category}
+                  <span>{food.category}</span>
                 </div>
-                <div>
-                  <span className="font-semibold">Origin:</span> {food.origin}
+                <div className="grid grid-cols-2 gap-4">
+                  <span className="font-semibold">Origin:</span>{" "}
+                  <span>{food?.foodOrigin}</span>
                 </div>
-                <div>
-                  <span className="font-semibold">Price:</span> ${food.price}
+                <div className="grid grid-cols-2 gap-4 border-r-2 border-green-500">
+                  <span className="font-semibold">Price:</span>{" "}
+                  <span className="text-[#F76F2A]">${food.price}</span>
                 </div>
-                <div>
+                <div className="grid grid-cols-2 gap-4">
                   <span className="font-semibold">Quantity:</span>{" "}
-                  {food.quantity}
+                  <span>{food.quantity}</span>
                 </div>
               </div>
 
