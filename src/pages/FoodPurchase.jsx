@@ -4,13 +4,39 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import {
+  FaUtensils,
+  FaDollarSign,
+  FaSortNumericUp,
+  FaUser,
+  FaEnvelope,
+  FaSpinner,
+} from "react-icons/fa";
 
 const FoodPurchase = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
-
   const navigate = useNavigate();
+
   const [food, setFood] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFoodData();
+  }, [id]);
+
+  const fetchFoodData = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/food/${id}`
+      );
+      setFood(data);
+    } catch (err) {
+      toast.error("Failed to load food data.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const foodName = food.foodName;
   const foodImage = food.foodImage;
@@ -35,133 +61,141 @@ const FoodPurchase = () => {
     postedUserEmail: email,
     postedUserName: userName,
     buyingDate: new Date().toString(),
-    seller: { email: user?.email, userName: user?.name, photo: user?.photoURL },
+    seller: {
+      email: user?.email,
+      userName: user?.displayName,
+      photo: user?.photoURL,
+    },
   };
 
-  useEffect(() => {
-    fetchFoodData();
-  }, [id]);
-
-  const fetchFoodData = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/food/${id}`
-    );
-    setFood(data);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const inputQuantity = parseFloat(form.quantity.value);
 
     if (inputQuantity > food.quantity) {
-      toast.error("fix your quantity");
+      toast.error("Quantity exceeds available stock");
       return;
     } else if (inputQuantity <= 0) {
-      toast.error("fix your quantity");
+      toast.error("Quantity must be greater than 0");
       return;
     } else if (inputQuantity > 20) {
-      toast.error("you can buy max 20");
+      toast.error("You can buy a maximum of 20 units");
       return;
     }
+
     const quantity = parseFloat(food.quantity - inputQuantity);
-
     const formData = { quantity };
-
-    // edit form data on mongodb by axios
 
     try {
       await axios.put(
         `${import.meta.env.VITE_API_URL}/update-food/${id}`,
         formData
       );
-      form.reset();
-      toast.success("Food Purchase Successfully");
-    } catch (err) {
-      toast.error(err.message);
-      console.log(err);
-    }
-    // add form data on mongodb by axios
-
-    try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/add-purchase-food`,
         newFoodData
       );
       form.reset();
+      toast.success("Food purchased successfully!");
       navigate("/my-orders");
     } catch (err) {
-      toast.error(err.message);
-      console.log(err);
+      toast.error("Failed to complete purchase");
+      console.error(err);
     }
   };
+
   return (
-    <div className="w-11/12 mx-auto p-6">
+    <div className="w-11/12 max-w-xl mx-auto p-6 min-h-screen">
       <Helmet>
-        <title>Food | Food Purchase</title>
+        <title>Food | Purchase</title>
       </Helmet>
-      <div className="max-w-lg mx-auto border rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold mb-6">Purchase Food</h1>
-        <form onSubmit={handleSubmit}>
-          {/* Food Name */}
-          <div className="mb-4">
-            <label className="block  font-semibold mb-2">Food Name</label>
-            <input
-              type="text"
-              defaultValue={food.foodName}
-              readOnly
-              className="w-full p-3 border text-black border-gray-300 rounded-lg  focus:outline-none"
-            />
-          </div>
 
-          {/* Price */}
-          <div className="mb-4">
-            <label className="block  font-semibold mb-2">Price</label>
-            <input
-              type="text"
-              defaultValue={food.price}
-              readOnly
-              className="w-full text-black p-3 border border-gray-300 rounded-lg  focus:outline-none"
-            />
-          </div>
+      {loading ? (
+        <div className="flex justify-center items-center h-80">
+          <FaSpinner className="animate-spin text-5xl text-green-500" />
+        </div>
+      ) : (
+        <div className="border rounded-2xl shadow-2xl bg-white dark:bg-gray-900 p-8 space-y-6 animate-fade-up">
+          <h1 className="text-3xl font-extrabold text-center text-gray-800 dark:text-white">
+            Purchase Food
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Food Name */}
+            <div>
+              <label className="block font-semibold mb-1 flex items-center gap-2">
+                <FaUtensils /> Food Name
+              </label>
+              <input
+                type="text"
+                value={food.foodName}
+                readOnly
+                className="w-full p-3 rounded-lg border text-black border-gray-300 focus:outline-none"
+              />
+            </div>
 
-          {/* Quantity */}
-          <div className="mb-4">
-            <label className="block  font-semibold mb-2">Quantity</label>
-            <input
-              type="number"
-              name="quantity"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-black focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+            {/* Price */}
+            <div>
+              <label className="block font-semibold mb-1 flex items-center gap-2">
+                <FaDollarSign /> Price
+              </label>
+              <input
+                type="text"
+                value={food.price}
+                readOnly
+                className="w-full p-3 rounded-lg border text-black border-gray-300 focus:outline-none"
+              />
+            </div>
 
-          {/* Buyer Name */}
-          <div className="mb-4">
-            <label className="block  font-semibold mb-2">Buyer Name</label>
-            <input
-              type="text"
-              defaultValue={user?.displayName}
-              readOnly
-              className="w-full p-3 border text-black border-gray-300 rounded-lg  focus:outline-none"
-            />
-          </div>
+            {/* Quantity */}
+            <div>
+              <label className="block font-semibold mb-1 flex items-center gap-2">
+                <FaSortNumericUp /> Quantity (max 20)
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                placeholder="Enter quantity"
+                className="w-full p-3 rounded-lg border border-gray-300 text-black focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-          {/* Buyer Email */}
-          <div className="mb-4">
-            <label className="block  font-semibold mb-2">Buyer Email</label>
-            <input
-              type="email"
-              defaultValue={user?.email}
-              readOnly
-              className="w-full p-3 border text-black border-gray-300 rounded-lg  focus:outline-none"
-            />
-          </div>
+            {/* Buyer Name */}
+            <div>
+              <label className="block font-semibold mb-1 flex items-center gap-2">
+                <FaUser /> Buyer Name
+              </label>
+              <input
+                type="text"
+                value={user?.displayName}
+                readOnly
+                className="w-full p-3 rounded-lg border text-black border-gray-300 focus:outline-none"
+              />
+            </div>
 
-          {/* Submit Button */}
-          <button className="w-full py-3 bg-gradient-to-r from-blue-500 to-green-500 hover:from-green-500 hover:to-blue-500 text-white font-bold rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-300">
-            Purchase
-          </button>
-        </form>
-      </div>
+            {/* Buyer Email */}
+            <div>
+              <label className="block font-semibold mb-1 flex items-center gap-2">
+                <FaEnvelope /> Buyer Email
+              </label>
+              <input
+                type="email"
+                value={user?.email}
+                readOnly
+                className="w-full p-3 rounded-lg border text-black border-gray-300 focus:outline-none"
+              />
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full py-3 font-bold text-white bg-gradient-to-r from-green-500 to-blue-500 hover:from-blue-500 hover:to-green-500 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105"
+            >
+              Confirm Purchase
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
