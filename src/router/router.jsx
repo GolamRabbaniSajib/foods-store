@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/updateFood/:id",
+        path: "/dashboard/updateFood/:id",
         element: <UpdateFood></UpdateFood>,
       },
       {

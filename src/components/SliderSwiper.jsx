@@ -1,111 +1,86 @@
 import swiperImage from "../assets/swiperBg.avif";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-// import Slide from "./Slide";
+
+const testimonials = [
+  {
+    text: `Interactively target efficient ideas before open-source supply chains. 
+           Conveniently fabricate state of the art channels vis-a-vis dynamic ROI.`,
+    name: "Nate Wilson",
+    time: "2 Days Ago",
+    image:
+      "https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?q=80&w=1949&auto=format&fit=crop",
+  },
+  {
+    text: `I was not thrilled with this recipe, the cookies did not spread while baking. 
+           I won't be making them again.`,
+    name: "Rajib Mia",
+    time: "4 Days Ago",
+    image:
+      "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop",
+  },
+  {
+    text: `Continually architect global processes via bleeding-edge partnerships. 
+           Compellingly foster growth strategies for intuitive catalysts.`,
+    name: "Sadiya Jannat",
+    time: "1 Day Ago",
+    image:
+      "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1936&auto=format&fit=crop",
+  },
+];
 
 const SliderSwiper = () => {
   return (
     <div
-      className="object-cover relative"
-      style={{
-        backgroundImage: `url(${swiperImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="relative bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${swiperImage})` }}
     >
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-      <div className=" w-11/12 mx-auto">
-        <div className="space-y-4 text-center mb-36 pt-20">
-          <h1 className="text-4xl md:text-6xl font-semibold text-green-400">
+      <div className="absolute inset-0 bg-black/60 z-0" />
+      <div className="relative z-10 w-11/12 max-w-7xl mx-auto py-20">
+        {/* Header */}
+        <div className="text-center mb-14 space-y-3">
+          <h1 className="text-4xl md:text-6xl font-bold text-green-400 drop-shadow-lg">
             Clients About Us
           </h1>
-          <p className="text-white font-semibold">Testimonials</p>
+          <p className="text-white text-lg font-medium">Testimonials</p>
         </div>
-        <div className=" flex items-center justify-center">
-          <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <div className="w-9/12 mx-auto space-y-8 pb-10">
-                <p className="text-center text-2xl font-medium text-white">
-                  Interactively target efficient ideas before open-source supply
-                  chains. Conveniently fabricate state of the art channels
-                  vis-a-vis dynamic ROI. Proactively productize virtual.
+
+        {/* Swiper Section */}
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{ clickable: true }}
+          navigation={true}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="w-full"
+        >
+          {testimonials.map((item, idx) => (
+            <SwiperSlide key={idx}>
+              <div className="w-full md:w-9/12 lg:w-7/12 mx-auto bg-white/10 backdrop-blur-md p-10 rounded-xl shadow-2xl text-white space-y-6 transition-all duration-500">
+                <p className="text-center text-xl md:text-2xl font-medium leading-relaxed">
+                  “{item.text}”
                 </p>
                 <div className="flex items-center justify-center">
                   <img
-                    className="rounded-full object-cover object-center w-20 h-20"
-                    src="https://images.unsplash.com/photo-1484515991647-c5760fcecfc7?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt=""
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-20 rounded-full object-cover border-4 border-green-400 shadow-md"
                   />
                 </div>
-                <p className="text-center text-white font-bold text-xl">
-                  Nate Wilson, 2 Days Ago
+                <p className="text-center font-bold text-lg">
+                  {item.name}, {item.time}
                 </p>
               </div>
             </SwiperSlide>
-            <SwiperSlide>
-              <div className="w-9/12 mx-auto space-y-8 pb-10">
-                <p className="text-center text-2xl font-medium text-white">
-                  I was not thrilled with this recipe, the cookies did not
-                  spread while baking and it is my belief that there is not
-                  enough butter in the recipe. I won't be making them again. Not
-                  using this recipe.
-                </p>
-                <div className="flex items-center justify-center">
-                  <img
-                    className="rounded-full object-cover object-center w-20 h-20"
-                    src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt=""
-                  />
-                </div>
-                <p className="text-center text-white font-bold text-xl">
-                  Rajib Mia, 4 Days Ago
-                </p>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="w-9/12 mx-auto space-y-8 pb-10">
-                <p className="text-center text-2xl font-medium text-white">
-                  Continually architect global processes via bleeding-edge
-                  partnerships. Phosfluorescently leverage other's client-based
-                  leadership after transparent paradigms. Compellingly foster an
-                  expanded array of growth strategies for intuitive catalysts.
-                </p>
-                <div className="flex items-center justify-center">
-                  <img
-                    className="rounded-full object-cover object-center w-20 h-20"
-                    src="https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt=""
-                  />
-                </div>
-                <p className="text-center text-white font-bold text-xl">
-                  Sadiya Jannat, 1 Days Ago
-                </p>
-              </div>
-            </SwiperSlide>
-          </Swiper>
-        </div>
+          ))}
+        </Swiper>
       </div>
     </div>
   );
