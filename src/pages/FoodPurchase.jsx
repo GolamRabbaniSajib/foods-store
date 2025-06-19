@@ -38,36 +38,6 @@ const FoodPurchase = () => {
     }
   };
 
-  const foodName = food.foodName;
-  const foodImage = food.foodImage;
-  const category = food.categoryName;
-  const price = parseFloat(food.price);
-  const description = food.description;
-  const purchaseCount = parseFloat(food.purchaseCount);
-  const foodOrigin = food.foodOrigin;
-  const email = food.buyer?.email;
-  const userName = food.buyer?.userName;
-  const foodId = food._id;
-
-  const newFoodData = {
-    foodId,
-    foodName,
-    foodImage,
-    category,
-    price,
-    description,
-    foodOrigin,
-    purchaseCount,
-    postedUserEmail: email,
-    postedUserName: userName,
-    buyingDate: new Date().toString(),
-    seller: {
-      email: user?.email,
-      userName: user?.displayName,
-      photo: user?.photoURL,
-    },
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -84,14 +54,31 @@ const FoodPurchase = () => {
       return;
     }
 
-    const quantity = parseFloat(food.quantity - inputQuantity);
-    const formData = { quantity };
+    const updatedQuantity = food.quantity - inputQuantity;
+
+    const newFoodData = {
+      foodId: food._id,
+      foodName: food.foodName,
+      foodImage: food.foodImage,
+      category: food.categoryName,
+      price: parseFloat(food.price),
+      description: food.description,
+      foodOrigin: food.foodOrigin,
+      purchaseCount: parseFloat(food.purchaseCount),
+      postedUserEmail: food.buyer?.email,
+      postedUserName: food.buyer?.userName,
+      buyingDate: new Date().toString(),
+      seller: {
+        email: user?.email,
+        userName: user?.displayName,
+        photo: user?.photoURL,
+      },
+    };
 
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/update-food/${id}`,
-        formData
-      );
+      await axios.put(`${import.meta.env.VITE_API_URL}/update-food/${id}`, {
+        quantity: updatedQuantity,
+      });
       await axios.post(
         `${import.meta.env.VITE_API_URL}/add-purchase-food`,
         newFoodData
@@ -123,7 +110,7 @@ const FoodPurchase = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Food Name */}
             <div>
-              <label className="block font-semibold mb-1 flex items-center gap-2">
+              <label className=" font-semibold mb-1 flex items-center gap-2">
                 <FaUtensils /> Food Name
               </label>
               <input
@@ -136,7 +123,7 @@ const FoodPurchase = () => {
 
             {/* Price */}
             <div>
-              <label className="block font-semibold mb-1 flex items-center gap-2">
+              <label className=" font-semibold mb-1 flex items-center gap-2">
                 <FaDollarSign /> Price
               </label>
               <input
@@ -149,7 +136,7 @@ const FoodPurchase = () => {
 
             {/* Quantity */}
             <div>
-              <label className="block font-semibold mb-1 flex items-center gap-2">
+              <label className=" font-semibold mb-1 flex items-center gap-2">
                 <FaSortNumericUp /> Quantity (max 20)
               </label>
               <input
@@ -162,7 +149,7 @@ const FoodPurchase = () => {
 
             {/* Buyer Name */}
             <div>
-              <label className="block font-semibold mb-1 flex items-center gap-2">
+              <label className=" font-semibold mb-1 flex items-center gap-2">
                 <FaUser /> Buyer Name
               </label>
               <input
@@ -175,7 +162,7 @@ const FoodPurchase = () => {
 
             {/* Buyer Email */}
             <div>
-              <label className="block font-semibold mb-1 flex items-center gap-2">
+              <label className=" font-semibold mb-1 flex items-center gap-2">
                 <FaEnvelope /> Buyer Email
               </label>
               <input

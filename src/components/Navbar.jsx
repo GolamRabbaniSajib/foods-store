@@ -1,77 +1,66 @@
-import { useContext } from "react";
+import { useContext, useState, useCallback } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
+import { FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const links = (
-    <>
-      <li>
-        <NavLink to="/" className="nav-link">
-          Home
+  const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
+
+  const navItems = [
+    { to: "/", label: "Home" },
+    { to: "/foods", label: "All Foods" },
+    { to: "/gallery", label: "Gallery" },
+    user
+      ? { to: "/add-food", label: "Add Food" }
+      : { to: "/aboutus", label: "About Us" },
+    { to: "/contract", label: "Contact" },
+  ];
+
+  const renderLinks = (isMobile = false) =>
+    navItems.map(({ to, label }) => (
+      <li key={to}>
+        <NavLink
+          to={to}
+          className={({ isActive }) =>
+            `${isMobile ? "block" : ""} nav-link ${
+              isActive
+                ? "bg-green-500 text-white"
+                : "text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            } px-4 py-2 rounded-md text-sm font-medium transition-all duration-200`
+          }
+          onClick={() => isMobile && setMenuOpen(false)}
+        >
+          {label}
         </NavLink>
       </li>
-      <li>
-        <NavLink to="/foods" className="nav-link">
-          All Foods
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/gallery" className="nav-link">
-          Gallery
-        </NavLink>
-      </li>
-      {user ? (
-        <li>
-          <NavLink to="/add-food" className="nav-link">
-            Add Food
-          </NavLink>
-        </li>
-      ) : (
-        <li>
-          <NavLink to="/aboutus" className="nav-link">
-            About Us
-          </NavLink>
-        </li>
-      )}
-      <li>
-        <NavLink to="/contract" className="nav-link">
-          Contact
-        </NavLink>
-      </li>
-    </>
-  );
+    ));
 
   return (
     <div className="bg-green-200 dark:bg-gray-900 fixed w-full z-50 shadow-md transition-all duration-300">
       <div className="navbar w-[92%] mx-auto py-2 flex items-center justify-between">
-        {/* Left: Brand + Dropdown */}
+        {/* Left: Mobile Dropdown + Brand */}
         <div className="navbar-start flex items-center gap-2">
-          {/* Mobile menu */}
+          {/* Mobile menu toggle */}
           <div className="dropdown lg:hidden">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </label>
-            <ul
+            <label
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-4 bg-base-200 dark:bg-gray-800 rounded-box shadow-xl space-y-2 animate-fade-in w-52"
+              className="btn btn-ghost btn-circle"
+              onClick={toggleMenu}
             >
-              {links}
-            </ul>
+              <FiMenu className="text-xl" />
+            </label>
+            {menuOpen && (
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 p-4 bg-base-200 dark:bg-gray-800 rounded-box shadow-xl space-y-2 animate-fade-in w-52"
+              >
+                {renderLinks(true)}
+              </ul>
+            )}
           </div>
 
           {/* Brand Logo */}
@@ -84,14 +73,14 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Center: Nav Links */}
+        {/* Center: Desktop Nav */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu dark:*:text-white menu-horizontal px-1 gap-3">
-            {links}
+          <ul className="menu menu-horizontal px-1 gap-3 dark:*:text-white">
+            {renderLinks()}
           </ul>
         </div>
 
-        {/* Right: Theme Toggle + Auth */}
+        {/* Right: Theme Toggle + Auth/User */}
         <div className="navbar-end dark:*:text-white flex items-center gap-3">
           <ThemeToggle />
 
