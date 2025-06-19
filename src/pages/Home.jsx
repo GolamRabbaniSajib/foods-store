@@ -7,28 +7,36 @@ import Offer from "../components/Offer";
 
 const Home = () => {
   return (
-    <div>
+    <main>
       <Helmet>
         <title>Food | Home</title>
       </Helmet>
-      {/* banner */}
-      <div className="mb-36">
-        <Banner></Banner>
-      </div>
-      {/* how to work section */}
-      <div className="mb-36">
-      <Work></Work>
-      </div>
-      {/* Top Foods section */}
-      <div className="mb-36">
-        <TopFood></TopFood>
-      </div>
-      <div className="mb-36">
-        <Offer></Offer>
-      </div>
-      {/* swiper */}
-      <SliderSwiper></SliderSwiper>
-    </div>
+
+      {/* Banner Section */}
+      <section>
+        <Banner />
+      </section>
+
+      {/* How It Works Section */}
+      <section>
+        <Work />
+      </section>
+
+      {/* Top Foods Section */}
+      <section>
+        <TopFood />
+      </section>
+
+      {/* Special Offer Section */}
+      <section>
+        <Offer />
+      </section>
+
+      {/* Testimonials Slider Section */}
+      <section className="pb-20">
+        <SliderSwiper />
+      </section>
+    </main>
   );
 };
 
