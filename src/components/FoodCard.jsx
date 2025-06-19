@@ -1,126 +1,184 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import { FaDollarSign, FaMapMarkerAlt, FaLayerGroup, FaShoppingCart } from "react-icons/fa";
+import { motion } from "framer-motion";
+import {
+  FiDollarSign,
+  FiMapPin,
+  FiLayers,
+  FiShoppingCart,
+  FiInfo,
+} from "react-icons/fi";
 
-const FoodCard = () => {
+// --- Skeleton Loader ---
+const DetailsSkeleton = () => (
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start animate-pulse">
+    <div className="w-full h-80 sm:h-96 bg-gray-300 dark:bg-gray-700 rounded-2xl" />
+    <div className="space-y-6">
+      <div className="h-10 w-3/4 bg-gray-300 dark:bg-gray-700 rounded" />
+      <div className="h-6 w-1/4 bg-gray-300 dark:bg-gray-700 rounded" />
+      <div className="space-y-2">
+        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded" />
+        <div className="h-4 w-5/6 bg-gray-300 dark:bg-gray-700 rounded" />
+      </div>
+      <div className="h-20 bg-gray-300 dark:bg-gray-700 rounded-lg" />
+      <div className="h-14 w-1/2 mx-auto sm:mx-0 bg-gray-300 dark:bg-gray-700 rounded-xl" />
+    </div>
+  </div>
+);
+
+// --- Detail Item (Reusable Box) ---
+const InfoItem = ({ icon: Icon, label, value }) => (
+  <div className="flex items-center gap-3">
+    <Icon className="text-xl text-amber-500" />
+    <div>
+      <p className="text-sm font-semibold text-gray-600 dark:text-gray-400">{label}</p>
+      <p className="font-bold text-gray-800 dark:text-white">{value}</p>
+    </div>
+  </div>
+);
+
+const FoodDetails = () => {
   const { id } = useParams();
-  const [food, setFood] = useState({});
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchFoodData();
-  }, [id]);
+  const [food, setFood] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const fetchFoodData = async () => {
+  const fetchFoodData = useCallback(async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/food/${id}`);
       setFood(data);
-    } catch (error) {
+    } catch {
       toast.error("Failed to fetch food data");
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchFoodData();
+  }, [fetchFoodData]);
 
   const handlePurchase = () => {
-    if (food.quantity <= 0) {
-      toast.error("Food Not Available");
-    } else {
-      navigate(`/foodPurchase/${food._id}`);
-    }
+    if (!food) return;
+    food.quantity <= 0
+      ? toast.error("This item is currently out of stock.")
+      : navigate(`/foodPurchase/${food._id}`);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
-    <div className="w-11/12 max-w-6xl mx-auto py-10 px-4">
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       <Helmet>
-        <title>Food | Details</title>
+        <title>{loading ? "Loading..." : `${food?.foodName} | Foodie`}</title>
       </Helmet>
 
-      {loading ? (
-        <div className="flex justify-center items-center h-80">
-          <div className="w-14 h-14 border-4 border-dashed border-green-500 rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="rounded-xl shadow-xl bg-white dark:bg-gray-900 overflow-hidden animate-fade-up">
-          {/* Image */}
-          <div className="relative group">
-            <img
-              src={food.foodImage}
-              alt={food.foodName}
-              className="w-full h-72 sm:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <p className="text-white text-2xl font-semibold tracking-wide">Delicious Choice</p>
-            </div>
+      <div className="w-11/12 max-w-6xl mx-auto py-12 sm:py-16 px-4">
+        {loading ? (
+          <DetailsSkeleton />
+        ) : !food ? (
+          <div className="text-center py-20 text-red-500">
+            <h2 className="text-2xl font-bold flex items-center justify-center gap-2">
+              <FiInfo /> Food item not found.
+            </h2>
           </div>
+        ) : (
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Image */}
+            <motion.div variants={itemVariants} className="w-full">
+              <img
+                src={food.foodImage}
+                alt={food.foodName}
+                className="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-2xl"
+              />
+            </motion.div>
 
-          {/* Content */}
-          <div className="p-6 space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">
-                {food.foodName}
-              </h2>
-              <p className="flex items-center text-xl font-semibold text-blue-600 gap-1">
-                <FaDollarSign /> {food.price}
-              </p>
-            </div>
+            {/* Content */}
+            <div className="flex flex-col space-y-6">
+              {/* Title & Uploader */}
+              <motion.div variants={itemVariants}>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                  {food.foodName}
+                </h1>
+                <p className="mt-2 text-lg text-gray-500 dark:text-gray-400">
+                  Added by: {food.buyer?.userName || "Unknown"}
+                </p>
+              </motion.div>
 
-            <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
-              {food.description}
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-              <p className="flex items-center gap-2">
-                <FaLayerGroup className="text-green-500" />
-                <span className="font-medium">Category:</span> {food.category}
-              </p>
-              <p className="flex items-center gap-2">
-                <FaMapMarkerAlt className="text-pink-500" />
-                <span className="font-medium">Origin:</span> {food.foodOrigin}
-              </p>
-              <p className="flex items-center gap-2">
-                <FaShoppingCart className="text-yellow-400" />
-                <span className="font-medium">Available:</span>{" "}
-                <span
-                  className={
-                    food.quantity === 0
-                      ? "text-red-500 font-semibold"
-                      : "text-green-500 font-semibold"
-                  }
-                >
-                  {food.quantity}
-                </span>
-              </p>
-              <p className="flex items-center gap-2">
-                <FaShoppingCart className="text-yellow-400" />
-                <span className="font-medium">Purchase Count:</span>{" "}
-                <span className="text-yellow-500 font-semibold">{food.purchaseCount}</span>
-              </p>
-            </div>
-
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={handlePurchase}
-                disabled={food.quantity === 0}
-                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 ${
-                  food.quantity === 0
-                    ? "bg-red-400 cursor-not-allowed"
-                    : "bg-green-500 hover:bg-green-600"
-                }`}
+              {/* Description */}
+              <motion.p
+                variants={itemVariants}
+                className="text-gray-700 dark:text-gray-300 text-base leading-relaxed"
               >
-                <FaShoppingCart />
-                {food.quantity > 0 ? "Purchase Now" : "Out of Stock"}
-              </button>
+                {food.description}
+              </motion.p>
+
+              {/* Category & Origin */}
+              <motion.div
+                variants={itemVariants}
+                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg grid grid-cols-2 gap-4"
+              >
+                <InfoItem icon={FiLayers} label="Category" value={food.category} />
+                <InfoItem icon={FiMapPin} label="Origin" value={food.foodOrigin} />
+              </motion.div>
+
+              {/* Price + Button */}
+              <motion.div
+                variants={itemVariants}
+                className="pt-6 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-6"
+              >
+                <div className="text-3xl font-bold text-amber-500 flex items-center gap-2">
+                  <FiDollarSign />
+                  {food.price}
+                </div>
+                <motion.button
+                  onClick={handlePurchase}
+                  disabled={food.quantity <= 0}
+                  className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-bold text-white shadow-lg transition-all duration-300 disabled:cursor-not-allowed ${
+                    food.quantity > 0
+                      ? "bg-amber-500 hover:bg-amber-600"
+                      : "bg-red-400"
+                  }`}
+                  whileHover={food.quantity > 0 ? { scale: 1.05 } : {}}
+                  whileTap={food.quantity > 0 ? { scale: 0.95 } : {}}
+                >
+                  <FiShoppingCart />
+                  {food.quantity > 0 ? "Purchase Now" : "Out of Stock"}
+                </motion.button>
+              </motion.div>
+
+              {/* Stock Status */}
+              <motion.div variants={itemVariants} className="text-sm text-center sm:text-left">
+                <p className={`font-semibold ${food.quantity > 0 ? "text-green-600" : "text-red-500"}`}>
+                  {food.quantity > 0 ? `${food.quantity} items available` : "Not available"}
+                </p>
+              </motion.div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default FoodCard;
+export default FoodDetails;
