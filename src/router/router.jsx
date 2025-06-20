@@ -18,6 +18,7 @@ import Contact from "../pages/Contract";
 import JobPage from "../pages/JobPage";
 import PressKitPage from "../pages/PresskitPage";
 import Faq from "../pages/Faq";
+import Terms from "../pages/Terms";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: '/faq',
         element: <Faq></Faq>
+      },
+      {
+        path: '/terms',
+        element: <Terms></Terms>
       }
     ],
   },
