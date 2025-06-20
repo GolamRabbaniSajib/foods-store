@@ -20,6 +20,7 @@ import PressKitPage from "../pages/PresskitPage";
 import Faq from "../pages/Faq";
 import Terms from "../pages/Terms";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+// import CookiePolicyPage from "../pages/CookiePolicyPage";
 
 const router = createBrowserRouter([
   {
@@ -114,7 +115,11 @@ const router = createBrowserRouter([
       {
         path: '/privacy',
         element: <PrivacyPolicy></PrivacyPolicy>
-      }
+      },
+      // {
+      //   path: '/cookies',
+      //   element: <CookiePolicyPage></CookiePolicyPage>
+      // }
     ],
   },
 ]);
