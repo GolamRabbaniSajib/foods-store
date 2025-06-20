@@ -19,6 +19,7 @@ import JobPage from "../pages/JobPage";
 import PressKitPage from "../pages/PresskitPage";
 import Faq from "../pages/Faq";
 import Terms from "../pages/Terms";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         path: '/terms',
         element: <Terms></Terms>
+      },
+      {
+        path: '/privacy',
+        element: <PrivacyPolicy></PrivacyPolicy>
       }
     ],
   },
