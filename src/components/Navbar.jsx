@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import logo from "../assets/2.png";
 
-// --- Hook: Click outside ---
+// Hook: Detect click outside
 const useClickOutside = (ref, handler) => {
   useEffect(() => {
     const listener = (e) => {
@@ -16,6 +16,42 @@ const useClickOutside = (ref, handler) => {
     document.addEventListener("mousedown", listener);
     return () => document.removeEventListener("mousedown", listener);
   }, [ref, handler]);
+};
+
+// Framer Motion Variants
+const drawerVariants = {
+  hidden: { x: "-100%", opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+  exit: {
+    x: "-100%",
+    opacity: 0,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
+
+const profileMenuVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: -10 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.2, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    y: -10,
+    transition: { duration: 0.15, ease: "easeIn" },
+  },
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const Navbar = () => {
@@ -38,26 +74,17 @@ const Navbar = () => {
       : [{ to: "/aboutus", label: "About Us" }]),
   ];
 
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { staggerChildren: 0.07, delayChildren: 0.1 },
-    },
-    exit: { opacity: 0, y: -20 },
-  };
-
-  const mobileLinkVariants = {
-    hidden: { opacity: 0, y: -15 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
-    <nav className="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-300 shadow-lg">
+    <nav
+      className="fixed w-full z-50 
+                 bg-white dark:bg-gray-900 
+                 lg:bg-white/80 lg:dark:bg-gray-900/80 
+                 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 
+                 shadow-lg lg:transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* --- Logo --- */}
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="h-10 w-auto" />
             <span className="text-2xl font-extrabold text-gray-900 dark:text-white">
@@ -65,8 +92,8 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* --- Desktop Nav --- */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-2">
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex lg:items-center lg:space-x-4">
             {navLinks.map(({ to, label }) => (
               <NavLink
                 key={to}
@@ -78,8 +105,8 @@ const Navbar = () => {
                     {label}
                     {isActive && (
                       <motion.span
-                        layoutId="active-underline"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-500"
+                        layoutId="underline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-500 rounded-full"
                         transition={{ type: "spring", stiffness: 300, damping: 25 }}
                       />
                     )}
@@ -89,17 +116,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* --- Right Side --- */}
-          <div className="flex items-center gap-4">
+          {/* Right Side */}
+          <div className="flex items-center gap-3">
             <ThemeToggle />
-
             {user ? (
               <div className="relative" ref={profileDropdownRef}>
                 <button
                   onClick={() => setIsProfileOpen((prev) => !prev)}
-                  className="flex items-center gap-2 focus:outline-none"
-                  aria-haspopup="true"
-                  aria-expanded={isProfileOpen}
+                  className="flex items-center gap-2"
                 >
                   <img
                     src={user.photoURL}
@@ -114,60 +138,56 @@ const Navbar = () => {
                   />
                 </button>
 
+                {/* Profile Dropdown */}
                 <AnimatePresence>
                   {isProfileOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
+                      variants={profileMenuVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
                       className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-gray-800 rounded-lg shadow-xl ring-1 ring-black ring-opacity-5"
-                      role="menu"
                     >
-                      <div className="py-1">
-                        <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                          <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-                            {user.displayName}
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                            {user.email}
-                          </p>
-                        </div>
-                        <Link
-                          to="/add-food"
-                          onClick={() => setIsProfileOpen(false)}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                          role="menuitem"
-                        >
-                          Add a Food Item
-                        </Link>
-                        <button
-                          onClick={() => {
-                            logOut();
-                            setIsProfileOpen(false);
-                          }}
-                          className="block w-full text-left px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
-                          role="menuitem"
-                        >
-                          Logout
-                        </button>
+                      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                          {user.displayName}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {user.email}
+                        </p>
                       </div>
+                      <Link
+                        to="/add-food"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Add a Food Item
+                      </Link>
+                      <button
+                        onClick={() => {
+                          logOut();
+                          setIsProfileOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                      >
+                        Logout
+                      </button>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
               <Link to="/login" className="hidden sm:block">
-                <button className="px-5 py-2 text-sm font-semibold text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors shadow-md hover:shadow-lg">
+                <button className="px-5 py-2 text-sm font-semibold text-white bg-green-500 hover:bg-green-600 rounded-lg shadow">
                   Login
                 </button>
               </Link>
             )}
 
-            {/* --- Mobile Menu Button --- */}
+            {/* Mobile Button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-              aria-label="Open mobile menu"
+              className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
             >
               <FiMenu className="h-6 w-6" />
             </button>
@@ -175,7 +195,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* --- Mobile Menu --- */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -186,28 +206,27 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <motion.div
-              variants={mobileMenuVariants}
+              variants={drawerVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="absolute top-0 left-0 w-full max-w-xs h-full bg-white dark:bg-gray-900 shadow-xl p-6"
+              className="absolute top-0 left-0 w-full max-w-xs h-full 
+                         bg-white dark:bg-gray-900 
+                         p-6 shadow-xl"
               onClick={(e) => e.stopPropagation()}
-              role="menu"
-              aria-label="Mobile navigation"
             >
               <div className="flex items-center justify-between mb-8">
                 <span className="text-xl font-bold dark:text-white">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  aria-label="Close mobile menu"
+                  className="p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
                 >
                   <FiX className="h-6 w-6" />
                 </button>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-4 p-4 rounded-md bg-green-100">
                 {navLinks.map(({ to, label }) => (
-                  <motion.li key={to} variants={mobileLinkVariants}>
+                  <motion.li key={to} variants={linkVariants}>
                     <NavLink
                       to={to}
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -218,19 +237,17 @@ const Navbar = () => {
                             : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`
                       }
-                      role="menuitem"
                     >
                       {label}
                     </NavLink>
                   </motion.li>
                 ))}
                 {!user && (
-                  <motion.li variants={mobileLinkVariants}>
+                  <motion.li variants={linkVariants}>
                     <Link
                       to="/login"
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full text-center px-4 py-3 rounded-lg text-base font-medium bg-green-500 text-white hover:bg-green-600"
-                      role="menuitem"
                     >
                       Login
                     </Link>
